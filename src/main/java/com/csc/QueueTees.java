@@ -2,36 +2,16 @@ package com.csc;
 
 import java.util.ArrayList;
 
-public class QueueTees {
-  ArrayList<Cutie> pets = new ArrayList<>();
+public class QueueTees<T> {
+  ArrayList<T> pets = new ArrayList<>();
   int index = 0;
 
-  public static void main(String[] args) {
-    QueueTees queuetees = new QueueTees();
-    System.out.println("So Cute!");
-    Puppy puppy = new Puppy();
-    Labrador labrador = new Labrador();
-    Cat cat = new Cat();
-    queuetees.enqueue(puppy, queuetees.pets);
-    queuetees.enqueue(labrador, queuetees.pets);
-    queuetees.enqueue(cat, queuetees.pets);
-    System.out.print(queuetees.size());
-    System.out.print(queuetees.pets);
-    queuetees.dequeue(queuetees.pets);
-    System.out.print(queuetees.pets);
-    queuetees.dequeue(queuetees.pets);
-    System.out.print(queuetees.pets);
-    queuetees.dequeue(queuetees.pets);
-    System.out.print(queuetees.pets);
-    System.out.print(queuetees.size());
-  }
-
-  public void enqueue(Cutie animal, ArrayList<Cutie> list) {
+  public void enqueue(T animal, ArrayList<T> list) {
     list.add(animal);
     this.index++;
   }
 
-  public void dequeue(ArrayList<Cutie> list) {
+  public void dequeue(ArrayList<T> list) {
     list.remove(0);
     this.index--;
   }
@@ -39,9 +19,35 @@ public class QueueTees {
   public int size() {
     return this.index;
   }
+
+  public void clearqueue(ArrayList<T> list) {
+    while (!list.isEmpty()) {
+      list.remove(0);
+      this.index -= 1;
+    }
+  }
+
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public static void main(String[] args) {
+    QueueTees queuetees = new QueueTees<>();
+    Puppy puppy = new Puppy();
+    Labrador labrador = new Labrador();
+    Cat cat = new Cat();
+    queuetees.enqueue(puppy, queuetees.pets);
+    queuetees.enqueue(labrador, queuetees.pets);
+    queuetees.enqueue(cat, queuetees.pets);
+    System.out.println(queuetees.size());
+    System.out.println(queuetees.pets);
+    queuetees.dequeue(queuetees.pets);
+    System.out.println(queuetees.pets);
+    queuetees.dequeue(queuetees.pets);
+    System.out.println(queuetees.pets);
+    queuetees.clearqueue(queuetees.pets);
+    System.out.print(queuetees.pets);
+  }
 }
 
-class Puppy implements Cutie {
+class Puppy implements Cuties {
 
   @Override
   public String description() {
@@ -54,7 +60,7 @@ class Puppy implements Cutie {
   }
 }
 
-class Cat implements Cutie {
+class Cat implements Cuties {
   @Override
   public String description() {
     return "a Cat with cute, big eyes";
@@ -66,7 +72,7 @@ class Cat implements Cutie {
   }
 }
 
-class Labrador implements Cutie {
+class Labrador implements Cuties {
   @Override
   public String description() {
     return "a Labrador with cute dark emerald eyes";
